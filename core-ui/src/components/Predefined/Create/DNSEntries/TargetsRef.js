@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Switch, FormInput } from 'fundamental-react';
+import { Button, Switch, FormInput, ComboboxInput } from 'fundamental-react';
 import classnames from 'classnames';
 import { useGetList, Spinner } from 'react-shared';
 
@@ -193,19 +193,24 @@ export function TargetsRef({ dnsEntry, setTargets, setDnsEntry }) {
             } else {
               return (
                 <div className="fd-col fd-col-md--9" key={index}>
-                  <ResourceForm.ComboboxInput
-                    key={`targets-select-${index}`}
+                  <ComboboxInput
+                    compact
+                    id={'targets-ref'}
+                    ariaLabel="Combobox input"
+                    arrowLabel="Combobox input arrow"
+                    showAllEntries
+                    searchFullString
                     options={IPs}
-                    defaultKey={value?.target}
+                    selectedKey={value?.target}
+                    selectionType="manual"
                     placeholder={t('dnsentries.placeholders.target-a')}
-                    setValue={selected => {
+                    onSelectionChange={(_, selected) => {
                       if (selected.key !== -1) {
                         setValue({ ...value, target: selected.key });
                       } else {
                         setValue({ ...value, target: selected.text });
                       }
                     }}
-                    selectionType="manual"
                   />
                 </div>
               );
