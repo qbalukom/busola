@@ -101,7 +101,7 @@ const getExternalIPs = loadBalancer => {
 };
 
 let memoizedServices = null;
-export function TargetsRef({ dnsEntry, setTargets, setDnsEntry }) {
+export function TargetsRef({ resource: dnsEntry, setResource: setDnsEntry }) {
   const { t } = useTranslation();
 
   const { data, loading } = useGetList()(`/api/v1/services`);
@@ -113,7 +113,6 @@ export function TargetsRef({ dnsEntry, setTargets, setDnsEntry }) {
   const services = memoizedServices || data;
   if (loading && !services) return <Spinner />;
 
-  const targets = dnsEntry?.spec.targets || [];
   const loadBalancers = services?.filter(
     service =>
       service.spec.type === 'LoadBalancer' &&
@@ -134,7 +133,6 @@ export function TargetsRef({ dnsEntry, setTargets, setDnsEntry }) {
       defaultOpen
       resource={dnsEntry}
       setResource={setDnsEntry}
-      propertyPath="$.spec.targets"
       className="targets-ref"
     >
       <TargetsInput
@@ -147,8 +145,7 @@ export function TargetsRef({ dnsEntry, setTargets, setDnsEntry }) {
             .map(target => target.target)
             .filter(t => !!t)
         }
-        value={targets}
-        setValue={setTargets}
+        propertyPath="$.spec.targets"
         inputs={[
           ({ value, index, setInternalValue }) => (
             <div className="fd-col fd-col-md--3" key={index}>

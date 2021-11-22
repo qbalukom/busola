@@ -92,14 +92,7 @@ export function DNSEntriesCreate({
         title={t('common.headers.annotations')}
       />
 
-      <TargetsRef
-        dnsEntry={dnsEntry}
-        setDnsEntry={setDnsEntry}
-        setTargets={targets => {
-          jp.value(dnsEntry, '$.spec.targets', targets);
-          setDnsEntry({ ...dnsEntry });
-        }}
-      />
+      <TargetsRef />
 
       <ResourceForm.TextArrayInput
         advanced
