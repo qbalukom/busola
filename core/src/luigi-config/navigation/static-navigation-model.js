@@ -79,6 +79,48 @@ export function getStaticChildrenNodesForNamespace(
       viewGroup: coreUIViewGroupName,
     },
 
+    {
+      label: 'compound test',
+      pathSegment: 'compound',
+      compound: {
+        renderer: {
+          use: 'grid',
+        },
+        children: [
+          {
+            resourceType: 'cronjobs',
+            pathSegment: 'cronjobs',
+            viewUrl:
+              config.coreUIModuleUrl +
+              '/namespaces/:namespaceId/cronjobs?' +
+              toSearchParamsString({
+                resourceApiPath: '/apis/batch/v1beta1',
+                hasDetailsView: true,
+              }),
+            viewGroup: coreUIViewGroupName,
+            keepSelectedForChildren: true,
+
+            navigationContext: 'cronjobs',
+          },
+          {
+            resourceType: 'jobs',
+            pathSegment: 'jobs',
+            viewUrl:
+              config.coreUIModuleUrl +
+              '/namespaces/:namespaceId/jobs?' +
+              toSearchParamsString({
+                resourceApiPath: '/apis/batch/v1',
+                hasDetailsView: true,
+              }),
+            viewGroup: coreUIViewGroupName,
+            keepSelectedForChildren: true,
+
+            navigationContext: 'jobs',
+          },
+        ],
+      },
+    },
+
     //WORKLOADS CATEGORY
     {
       category: {
