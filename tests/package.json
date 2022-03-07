@@ -10,11 +10,12 @@
     "test:local-smoke-docker": "CYPRESS_DOMAIN=http://localhost:3001 $(npm bin)/cypress run --browser chrome -C cypress-smoke.json"
   },
   "devDependencies": {
+    "@cypress-audit/lighthouse": "^1.2.0",
+    "@cypress/webpack-preprocessor": "^5.11.1",
     "cypress-file-upload": "^5.0.8",
     "js-yaml": "^4.1.0"
   },
   "optionalDependencies": {
     "cypress": "^9.5.0"
-  },
-  "dependencies": {}
+  }
 }

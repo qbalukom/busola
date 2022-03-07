@@ -1,4 +1,6 @@
+const { lighthouse, prepareAudit } = require('@cypress-audit/lighthouse');
 const fs = require('fs');
+const webpackPreprocessor = require('@cypress/webpack-preprocessor');
 
 module.exports = (on, config) => {
   let namespaceName = process.env.NAMESPACE_NAME || null;
@@ -15,7 +17,14 @@ module.exports = (on, config) => {
   config.env.NAMESPACE_NAME = namespaceName;
   config.env.STORAGE_CLASS_NAME = randomName;
 
+  on('file:preprocessor', webpackPreprocessor());
+
+  on('before:browser:launch', (browser = {}, launchOptions) => {
+    prepareAudit(launchOptions);
+  });
+
   on('task', {
+    lighthouse: lighthouse(),
     removeFile(filePath) {
       fs.unlinkSync(filePath);
       return null;
@@ -26,11 +35,11 @@ module.exports = (on, config) => {
     // invoke setter cy.task('dynamicSharedStore', { name: 'cancelTests', value: true })
     // invoke getter cy.task('dynamicSharedStore', { name: 'cancelTests' })
     dynamicSharedStore(property) {
+      console.log('dynamic shared store', property);
       if (property.value !== undefined) {
         dynamicSharedStore[property.name] = property.value;
-      } else {
-        return dynamicSharedStore[property.name];
       }
+      return dynamicSharedStore[property.name] ?? null;
     },
   });
   return config;

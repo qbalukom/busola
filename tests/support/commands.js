@@ -1,4 +1,6 @@
+import 'regenerator-runtime/runtime';
 import 'cypress-file-upload';
+import '@cypress-audit/lighthouse/commands';
 
 Cypress.skipAfterFail = ({ skipAllSuits = false } = {}) => {
   before(function() {

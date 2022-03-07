@@ -114,6 +114,11 @@ Cypress.Commands.add('loginAndSelectCluster', function(params) {
 
     cy.getIframeBody()
       .find('[role="dialog"]')
+      .contains('Local storage')
+      .click();
+
+    cy.getIframeBody()
+      .find('[role="dialog"]')
       .contains('button', 'Connect cluster')
       .click();
 
