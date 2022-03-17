@@ -84,7 +84,37 @@ export function getMetric(type, metric, { step, ...data }) {
   return metrics[metric];
 }
 
-export function usePrometheus(type, metricId, { items, timeSpan, ...props }) {
+export function usePrometheus(type, metricId, { interval, ...props }) {
+  const metric = getMetric(type, metricId, props);
+
+  const {
+    data,
+    error,
+    loading,
+  } = useGet(
+    `/api/v1/namespaces/kyma-system/services/monitoring-prometheus:web/proxy/api/v1/query?` +
+      `query=${metric.prometheusQuery}`,
+    { pollingInterval: interval },
+  );
+
+  let dataValues = data?.data.result[0]?.values.map(
+    ([timestamp, value]) => value,
+  );
+
+  return {
+    data: dataValues,
+    error,
+    loading,
+    binary: metric.binary,
+    unit: metric.unit,
+  };
+}
+
+export function usePrometheusRange(
+  type,
+  metricId,
+  { items, timeSpan, ...props },
+) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [step, setStep] = useState(timeSpan / items);

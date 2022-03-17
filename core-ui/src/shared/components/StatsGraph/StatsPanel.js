@@ -9,7 +9,7 @@ import {
 import { Dropdown, getErrorMessage } from 'react-shared';
 import { useTranslation } from 'react-i18next';
 
-import { usePrometheus } from 'shared/hooks/usePrometheus';
+import { usePrometheusRange } from 'shared/hooks/usePrometheus';
 import { StatsGraph } from 'shared/components/StatsGraph';
 
 import './StatsPanel.scss';
@@ -26,7 +26,7 @@ export function SingleGraph({ type, timeSpan, metric, ...props }) {
     loading,
     startDate,
     endDate,
-  } = usePrometheus(type, metric, {
+  } = usePrometheusRange(type, metric, {
     items: DATA_POINTS,
     timeSpan,
     ...props,
@@ -64,12 +64,12 @@ export function DualGraph({ type, timeSpan, metric1, metric2, ...props }) {
     loading: loading1,
     startDate,
     endDate,
-  } = usePrometheus(type, metric1, {
+  } = usePrometheusRange(type, metric1, {
     items: DATA_POINTS,
     timeSpan,
     ...props,
   });
-  const { data: data2, error: error2, loading: loading2 } = usePrometheus(
+  const { data: data2, error: error2, loading: loading2 } = usePrometheusRange(
     type,
     metric2,
     {
