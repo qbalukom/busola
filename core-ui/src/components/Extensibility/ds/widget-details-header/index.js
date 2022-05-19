@@ -10,10 +10,8 @@ import {
 } from '@ui-schema/ui-schema/Plugins';
 import { PluginSimpleStack } from '@ui-schema/ui-schema/PluginSimpleStack';
 
-import { WorkloadRenderer } from './WorkloadRenderer';
-import { GenericListRenderer } from './GenericListRenderer';
-import { SimpleTypeRenderer } from './SimpleTypeRenderer';
-// import { PanelRenderer } from './PanelRenderer';
+import { SimpleTypeRenderer } from '../widgets-details/SimpleTypeRenderer';
+import { StatusRenderer } from './StatusRenderer';
 
 const pluginStack = [
   ReferencingHandler,
@@ -32,19 +30,20 @@ export const widgets = {
   WidgetRenderer,
   pluginStack,
   types: {
-    string: SimpleTypeRenderer,
-    boolean: SimpleTypeRenderer,
-    number: SimpleTypeRenderer,
-    integer: SimpleTypeRenderer,
-    array: GenericListRenderer,
+    string: () => '',
+    boolean: () => '',
+    number: () => '',
+    integer: () => '',
+    array: () => '',
   },
   custom: {
+    Status: StatusRenderer,
+    Panel: () => '',
     /*
     Accordions: AccordionsRenderer,
     */
     // Panel: PanelRenderer,
-    Status: () => '',
-    Workload: WorkloadRenderer,
+    //    Workload: WorkloadRenderer,
     // List: GenericListRenderer,
     // Table: TableDataRenderer,
     /*

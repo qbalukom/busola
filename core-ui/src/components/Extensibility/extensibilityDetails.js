@@ -3,6 +3,7 @@ import { useGetCRbyPath } from './useGetCRbyPath';
 import { usePrepareDetailsProps } from 'resources/helpers';
 import { ResourceDetails } from 'shared/components/ResourceDetails/ResourceDetails';
 import { DetailsSchema } from './components/DetailsSchema';
+import { DetailsHeaderSchema } from './components/DetailsHeaderSchema';
 import { prettifyNamePlural } from 'shared/utils/helpers';
 
 export const ExtensibilityDetails = () => {
@@ -21,7 +22,14 @@ export const ExtensibilityDetails = () => {
 
   const schema = resMetaData?.schema;
 
-  const customColumns = [];
+  const customColumns = [
+    {
+      header: 'Status',
+      value: resource => (
+        <DetailsHeaderSchema resource={resource} schema={schema} />
+      ),
+    },
+  ];
 
   const breadcrumbs = [
     {

@@ -2266,7 +2266,7 @@
       "status": {
         "description": "APIRuleStatus defines the observed state of ApiRule",
         "type": "object",
-        "hidden": true,
+        "widget": "Status",
         "properties": {
           "APIRuleStatus": {
             "description": "APIRuleResourceStatus .",
