@@ -13,7 +13,8 @@ import { PluginSimpleStack } from '@ui-schema/ui-schema/PluginSimpleStack';
 import { WorkloadRenderer } from './WorkloadRenderer';
 import { GenericListRenderer } from './GenericListRenderer';
 import { SimpleTypeRenderer } from './SimpleTypeRenderer';
-// import { PanelRenderer } from './PanelRenderer';
+import { PanelRenderer } from './PanelRenderer';
+import { CardRenderer } from './CardRenderer';
 
 const pluginStack = [
   ReferencingHandler,
@@ -42,8 +43,9 @@ export const widgets = {
     /*
     Accordions: AccordionsRenderer,
     */
-    // Panel: PanelRenderer,
     Workload: WorkloadRenderer,
+    Panel: PanelRenderer,
+    Card: CardRenderer,
     // List: GenericListRenderer,
     // Table: TableDataRenderer,
     /*
