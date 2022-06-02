@@ -82,7 +82,7 @@
       "VISUAL_RESOURCES": {
         "isEnabled": true
       },
-      "CUSTOM_RESOURCES": {
+      "EXTENSIBILITY": {
         "isEnabled": false 
       }
     }

@@ -60,7 +60,7 @@ async function loadTargetClusterCRs(authData) {
 
 export async function getCustomResources(authData) {
   const { features } = await getCurrentConfig();
-  if (features.CUSTOM_RESOURCES?.isEnabled) {
+  if (features.EXTENSIBILITY?.isEnabled) {
     if (customResources) return customResources;
 
     customResources = Object.values({
