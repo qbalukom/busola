@@ -83,7 +83,7 @@
         "isEnabled": true
       },
       "CUSTOM_RESOURCES": {
-        "isEnabled": true 
+        "isEnabled": false 
       }
     }
   }
