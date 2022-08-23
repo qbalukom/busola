@@ -60,17 +60,13 @@ export function DataSourcesContextProvider({ children, dataSources }) {
       const response = await fetch({ relativeUrl });
       let data = await response.json();
       if (filter) {
-        // console.log(filter);
         const expression = jsonataWrapper(filter);
-        // console.log(expression);
         expression.assign('root', resource);
         if (data.items) {
-          data = data.items.filter(item => {
-            console.log(item);
+          data.items = data.items.filter(item => {
             expression.assign('item', item);
             return expression.evaluate({ data });
           });
-          console.log(data);
         } else {
           expression.assign('item', data);
           if (!expression.evaluate()) {
