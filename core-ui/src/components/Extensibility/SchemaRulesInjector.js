@@ -76,6 +76,7 @@ export function SchemaRulesInjector({
   schemaRules,
   ...props
 }) {
+  console.log('SchemaRulesInjector');
   const nextPluginIndex = currentPluginIndex + 1;
   const Plugin = getNextPlugin(nextPluginIndex, props.widgets);
 

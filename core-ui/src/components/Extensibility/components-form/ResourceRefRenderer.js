@@ -15,7 +15,6 @@ function ResourceRefRenderCore({
   storeKeys,
   resource,
 }) {
-  s;
   const { t } = useTranslation();
   // TODO the value obtained by ui-schema is undefined for this component
   value = getObjectValueWorkaround(schema, resource, storeKeys, value);

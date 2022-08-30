@@ -1,2 +1,961 @@
 {
+  "destinationRules80%ofTheForm": {
+    "details": {
+      "header": [],
+      "body": [
+        {
+          "name": "references",
+          "widget": "Panel",
+          "children": [
+            {
+              "source": "spec.host",
+              "type": "string",
+              "name": "Host"
+            },
+            {
+              "source": "spec.exportTo",
+              "widget": "JoinedArray",
+              "separator": ", "
+            }
+          ]
+        },
+        {
+          "source": "spec.trafficPolicy",
+          "name": "spec.trafficPolicy",
+          "widget": "CodeViewer",
+          "visibility": "$exists($.data)"
+        },
+        {
+          "source": "spec.subset",
+          "widget": "CodeViewer",
+          "visibility": "$exists($.data)"
+        },
+        {
+          "source": "spec.workloadSelector",
+          "widget": "CodeViewer",
+          "visibility": "$exists($.data)"
+        }
+      ]
+    },
+    "form": [
+      {
+        "simple": true,
+        "path": "spec.host"
+      },
+      {
+        "widget": "FormGroup",
+        "simple": true,
+        "path": "spec.trafficPolicy",
+        "children": [
+          {
+            "widget": "FormGroup",
+            "path": "loadBalancer",
+            "children": [
+              {
+                "path": "simple"
+              },
+              {
+                "widget": "FormGroup",
+                "path": "consistentHash",
+                "children": [
+                  {
+                    "path": "httpHeaderName"
+                  },
+                  {
+                    "path": "httpCookie",
+                    "widget": "FormGroup",
+                    "children": [
+                      {
+                        "path": "name"
+                      },
+                      {
+                        "path": "path"
+                      },
+                      {
+                        "path": "ttl"
+                      }
+                    ]
+                  },
+                  {
+                    "path": "useSourceIp"
+                  },
+                  {
+                    "path": "httpQueryParameterName"
+                  },
+                  {
+                    "path": "minimumRingSize"
+                  }
+                ]
+              },
+              {
+                "path": "localityLbSetting",
+                "widget": "FormGroup",
+                "children": [
+                  {
+                    "path": "enabled",
+                    "type": "boolean"
+                  },
+                  {
+                    "path": "distribute",
+                    "widget": "GenericList"
+                  },
+                  {
+                    "path": "distribute[].from"
+                  },
+                  {
+                    "path": "distribute[].to",
+                    "widget": "KeyValuePair"
+                  },
+                  {
+                    "path": "failover",
+                    "widget": "GenericList"
+                  },
+                  {
+                    "path": "failover[].from"
+                  },
+                  {
+                    "path": "failover[].to"
+                  },
+                  {
+                    "path": "failoverPriority",
+                    "widget": "SimpleList"
+                  }
+                ]
+              },
+              {
+                "path": "warmupDurationSecs"
+              }
+            ]
+          },
+          {
+            "path": "connectionPool",
+            "widget": "FormGroup",
+            "children": [
+              {
+                "path": "tcp",
+                "widget": "FormGroup",
+                "children": [
+                  {
+                    "path": "maxConnections"
+                  },
+                  {
+                    "path": "connectTimeout"
+                  },
+                  {
+                    "path": "tcpKeepalive",
+                    "widget": "FormGroup",
+                    "children": [
+                      {
+                        "path": "probes"
+                      },
+                      {
+                        "path": "time"
+                      },
+                      {
+                        "path": "interval"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "path": "http",
+                "widget": "FormGroup",
+                "children": [
+                  {
+                    "path": "http1MaxPendingRequests"
+                  },
+                  {
+                    "path": "http2MaxRequests"
+                  },
+                  {
+                    "path": "maxRequestsPerConnection"
+                  },
+                  {
+                    "path": "maxRetries"
+                  },
+                  {
+                    "path": "idleTimeout"
+                  },
+                  {
+                    "path": "h2UpgradePolicy"
+                  },
+                  {
+                    "path": "useClientProtocol"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "path": "outlierDetection",
+            "widget": "FormGroup",
+            "children": [
+              {
+                "path": "splitExternalLocalOriginErrors"
+              },
+              {
+                "path": "consecutiveLocalOriginFailures"
+              },
+              {
+                "path": "consecutiveGatewayErrors"
+              },
+              {
+                "path": "consecutive5xxErrors"
+              },
+              {
+                "path": "interval"
+              },
+              {
+                "path": "baseEjectionTime"
+              },
+              {
+                "path": "maxEjectionPercent"
+              },
+              {
+                "path": "minHealthPercent"
+              }
+            ]
+          },
+          {
+            "path": "tls",
+            "widget": "FormGroup",
+            "children": [
+              {
+                "path": "mode"
+              },
+              {
+                "path": "clientCertificate"
+              },
+              {
+                "path": "privateKey"
+              },
+              {
+                "path": "caCertificates"
+              },
+              {
+                "path": "credentialName"
+              },
+              {
+                "path": "subjectAltNames",
+                "widget": "SimpleList"
+              },
+              {
+                "path": "sni",
+                "name": "SNI"
+              },
+              {
+                "path": "insecureSkipVerify"
+              }
+            ]
+          },
+          {
+            "path": "portLevelSettings",
+            "widget": "GenericList",
+            "children": [
+              {
+                "path": "[].port.number"
+              },
+              {
+                "widget": "FormGroup",
+                "path": "[].loadBalancer",
+                "children": [
+                  {
+                    "path": "simple"
+                  },
+                  {
+                    "widget": "FormGroup",
+                    "path": "consistentHash",
+                    "children": [
+                      {
+                        "path": "httpHeaderName"
+                      },
+                      {
+                        "path": "httpCookie",
+                        "widget": "FormGroup",
+                        "children": [
+                          {
+                            "path": "name"
+                          },
+                          {
+                            "path": "path"
+                          },
+                          {
+                            "path": "ttl"
+                          }
+                        ]
+                      },
+                      {
+                        "path": "useSourceIp"
+                      },
+                      {
+                        "path": "httpQueryParameterName"
+                      },
+                      {
+                        "path": "minimumRingSize"
+                      }
+                    ]
+                  },
+                  {
+                    "path": "localityLbSetting",
+                    "widget": "FormGroup",
+                    "children": [
+                      {
+                        "path": "enabled",
+                        "type": "boolean"
+                      },
+                      {
+                        "path": "distribute",
+                        "widget": "GenericList"
+                      },
+                      {
+                        "path": "distribute[].from"
+                      },
+                      {
+                        "path": "distribute[].to",
+                        "widget": "KeyValuePair"
+                      },
+                      {
+                        "path": "failover",
+                        "widget": "GenericList"
+                      },
+                      {
+                        "path": "failover[].from"
+                      },
+                      {
+                        "path": "failover[].to"
+                      },
+                      {
+                        "path": "failoverPriority",
+                        "widget": "SimpleList"
+                      }
+                    ]
+                  },
+                  {
+                    "path": "warmupDurationSecs"
+                  }
+                ]
+              },
+              {
+                "path": "[].connectionPool",
+                "widget": "FormGroup",
+                "children": [
+                  {
+                    "path": "tcp",
+                    "widget": "FormGroup",
+                    "children": [
+                      {
+                        "path": "maxConnections"
+                      },
+                      {
+                        "path": "connectTimeout"
+                      },
+                      {
+                        "path": "tcpKeepalive",
+                        "widget": "FormGroup",
+                        "children": [
+                          {
+                            "path": "probes"
+                          },
+                          {
+                            "path": "time"
+                          },
+                          {
+                            "path": "interval"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "path": "http",
+                    "widget": "FormGroup",
+                    "children": [
+                      {
+                        "path": "http1MaxPendingRequests"
+                      },
+                      {
+                        "path": "http2MaxRequests"
+                      },
+                      {
+                        "path": "maxRequestsPerConnection"
+                      },
+                      {
+                        "path": "maxRetries"
+                      },
+                      {
+                        "path": "idleTimeout"
+                      },
+                      {
+                        "path": "h2UpgradePolicy"
+                      },
+                      {
+                        "path": "useClientProtocol"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "path": "[].outlierDetection",
+                "widget": "FormGroup",
+                "children": [
+                  {
+                    "path": "splitExternalLocalOriginErrors"
+                  },
+                  {
+                    "path": "consecutiveLocalOriginFailures"
+                  },
+                  {
+                    "path": "consecutiveGatewayErrors"
+                  },
+                  {
+                    "path": "consecutive5xxErrors"
+                  },
+                  {
+                    "path": "interval"
+                  },
+                  {
+                    "path": "baseEjectionTime"
+                  },
+                  {
+                    "path": "maxEjectionPercent"
+                  },
+                  {
+                    "path": "minHealthPercent"
+                  }
+                ]
+              },
+              {
+                "path": "[].tls",
+                "widget": "FormGroup",
+                "children": [
+                  {
+                    "path": "mode"
+                  },
+                  {
+                    "path": "clientCertificate"
+                  },
+                  {
+                    "path": "privateKey"
+                  },
+                  {
+                    "path": "caCertificates"
+                  },
+                  {
+                    "path": "credentialName"
+                  },
+                  {
+                    "path": "subjectAltNames",
+                    "widget": "SimpleList"
+                  },
+                  {
+                    "path": "sni",
+                    "name": "SNI"
+                  },
+                  {
+                    "path": "insecureSkipVerify"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "path": "tunnel",
+            "widget": "FormGroup",
+            "children": [
+              {
+                "path": "protocol"
+              },
+              {
+                "path": "targetHost"
+              },
+              {
+                "path": "targetPort"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "spec.subsets",
+        "simple": true,
+        "widget": "GenericList",
+        "children": [
+          {
+            "path": "[].name"
+          },
+          {
+            "path": "[].labels",
+            "widget": "KeyValuePair"
+          },
+          {
+            "path": "[].trafficPolicy",
+            "children": [
+              {
+                "widget": "FormGroup",
+                "path": "loadBalancer",
+                "children": [
+                  {
+                    "path": "simple"
+                  },
+                  {
+                    "widget": "FormGroup",
+                    "path": "consistentHash",
+                    "children": [
+                      {
+                        "path": "httpHeaderName"
+                      },
+                      {
+                        "path": "httpCookie",
+                        "widget": "FormGroup",
+                        "children": [
+                          {
+                            "path": "name"
+                          },
+                          {
+                            "path": "path"
+                          },
+                          {
+                            "path": "ttl"
+                          }
+                        ]
+                      },
+                      {
+                        "path": "useSourceIp"
+                      },
+                      {
+                        "path": "httpQueryParameterName"
+                      },
+                      {
+                        "path": "minimumRingSize"
+                      }
+                    ]
+                  },
+                  {
+                    "path": "localityLbSetting",
+                    "widget": "FormGroup",
+                    "children": [
+                      {
+                        "path": "enabled",
+                        "type": "boolean"
+                      },
+                      {
+                        "path": "distribute",
+                        "widget": "GenericList"
+                      },
+                      {
+                        "path": "distribute[].from"
+                      },
+                      {
+                        "path": "distribute[].to",
+                        "widget": "KeyValuePair"
+                      },
+                      {
+                        "path": "failover",
+                        "widget": "GenericList"
+                      },
+                      {
+                        "path": "failover[].from"
+                      },
+                      {
+                        "path": "failover[].to"
+                      },
+                      {
+                        "path": "failoverPriority",
+                        "widget": "SimpleList"
+                      }
+                    ]
+                  },
+                  {
+                    "path": "warmupDurationSecs"
+                  }
+                ]
+              },
+              {
+                "path": "connectionPool",
+                "widget": "FormGroup",
+                "children": [
+                  {
+                    "path": "tcp",
+                    "widget": "FormGroup",
+                    "children": [
+                      {
+                        "path": "maxConnections"
+                      },
+                      {
+                        "path": "connectTimeout"
+                      },
+                      {
+                        "path": "tcpKeepalive",
+                        "widget": "FormGroup",
+                        "children": [
+                          {
+                            "path": "probes"
+                          },
+                          {
+                            "path": "time"
+                          },
+                          {
+                            "path": "interval"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "path": "http",
+                    "widget": "FormGroup",
+                    "children": [
+                      {
+                        "path": "http1MaxPendingRequests"
+                      },
+                      {
+                        "path": "http2MaxRequests"
+                      },
+                      {
+                        "path": "maxRequestsPerConnection"
+                      },
+                      {
+                        "path": "maxRetries"
+                      },
+                      {
+                        "path": "idleTimeout"
+                      },
+                      {
+                        "path": "h2UpgradePolicy"
+                      },
+                      {
+                        "path": "useClientProtocol"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "path": "outlierDetection",
+                "widget": "FormGroup",
+                "children": [
+                  {
+                    "path": "splitExternalLocalOriginErrors"
+                  },
+                  {
+                    "path": "consecutiveLocalOriginFailures"
+                  },
+                  {
+                    "path": "consecutiveGatewayErrors"
+                  },
+                  {
+                    "path": "consecutive5xxErrors"
+                  },
+                  {
+                    "path": "interval"
+                  },
+                  {
+                    "path": "baseEjectionTime"
+                  },
+                  {
+                    "path": "maxEjectionPercent"
+                  },
+                  {
+                    "path": "minHealthPercent"
+                  }
+                ]
+              },
+              {
+                "path": "tls",
+                "widget": "FormGroup",
+                "children": [
+                  {
+                    "path": "mode"
+                  },
+                  {
+                    "path": "clientCertificate"
+                  },
+                  {
+                    "path": "privateKey"
+                  },
+                  {
+                    "path": "caCertificates"
+                  },
+                  {
+                    "path": "credentialName"
+                  },
+                  {
+                    "path": "subjectAltNames",
+                    "widget": "SimpleList"
+                  },
+                  {
+                    "path": "sni",
+                    "name": "SNI"
+                  },
+                  {
+                    "path": "insecureSkipVerify"
+                  }
+                ]
+              },
+              {
+                "path": "portLevelSettings",
+                "widget": "GenericList",
+                "children": [
+                  {
+                    "path": "[].port.number"
+                  },
+                  {
+                    "widget": "FormGroup",
+                    "path": "[].loadBalancer",
+                    "children": [
+                      {
+                        "path": "simple"
+                      },
+                      {
+                        "widget": "FormGroup",
+                        "path": "consistentHash",
+                        "children": [
+                          {
+                            "path": "httpHeaderName"
+                          },
+                          {
+                            "path": "httpCookie",
+                            "widget": "FormGroup",
+                            "children": [
+                              {
+                                "path": "name"
+                              },
+                              {
+                                "path": "path"
+                              },
+                              {
+                                "path": "ttl"
+                              }
+                            ]
+                          },
+                          {
+                            "path": "useSourceIp"
+                          },
+                          {
+                            "path": "httpQueryParameterName"
+                          },
+                          {
+                            "path": "minimumRingSize"
+                          }
+                        ]
+                      },
+                      {
+                        "path": "localityLbSetting",
+                        "widget": "FormGroup",
+                        "children": [
+                          {
+                            "path": "enabled",
+                            "type": "boolean"
+                          },
+                          {
+                            "path": "distribute",
+                            "widget": "GenericList"
+                          },
+                          {
+                            "path": "distribute[].from"
+                          },
+                          {
+                            "path": "distribute[].to",
+                            "widget": "KeyValuePair"
+                          },
+                          {
+                            "path": "failover",
+                            "widget": "GenericList"
+                          },
+                          {
+                            "path": "failover[].from"
+                          },
+                          {
+                            "path": "failover[].to"
+                          },
+                          {
+                            "path": "failoverPriority",
+                            "widget": "SimpleList"
+                          }
+                        ]
+                      },
+                      {
+                        "path": "warmupDurationSecs"
+                      }
+                    ]
+                  },
+                  {
+                    "path": "[].connectionPool",
+                    "widget": "FormGroup",
+                    "children": [
+                      {
+                        "path": "tcp",
+                        "widget": "FormGroup",
+                        "children": [
+                          {
+                            "path": "maxConnections"
+                          },
+                          {
+                            "path": "connectTimeout"
+                          },
+                          {
+                            "path": "tcpKeepalive",
+                            "widget": "FormGroup",
+                            "children": [
+                              {
+                                "path": "probes"
+                              },
+                              {
+                                "path": "time"
+                              },
+                              {
+                                "path": "interval"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "path": "http",
+                        "widget": "FormGroup",
+                        "children": [
+                          {
+                            "path": "http1MaxPendingRequests"
+                          },
+                          {
+                            "path": "http2MaxRequests"
+                          },
+                          {
+                            "path": "maxRequestsPerConnection"
+                          },
+                          {
+                            "path": "maxRetries"
+                          },
+                          {
+                            "path": "idleTimeout"
+                          },
+                          {
+                            "path": "h2UpgradePolicy"
+                          },
+                          {
+                            "path": "useClientProtocol"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "path": "[].outlierDetection",
+                    "widget": "FormGroup",
+                    "children": [
+                      {
+                        "path": "splitExternalLocalOriginErrors"
+                      },
+                      {
+                        "path": "consecutiveLocalOriginFailures"
+                      },
+                      {
+                        "path": "consecutiveGatewayErrors"
+                      },
+                      {
+                        "path": "consecutive5xxErrors"
+                      },
+                      {
+                        "path": "interval"
+                      },
+                      {
+                        "path": "baseEjectionTime"
+                      },
+                      {
+                        "path": "maxEjectionPercent"
+                      },
+                      {
+                        "path": "minHealthPercent"
+                      }
+                    ]
+                  },
+                  {
+                    "path": "[].tls",
+                    "widget": "FormGroup",
+                    "children": [
+                      {
+                        "path": "mode"
+                      },
+                      {
+                        "path": "clientCertificate"
+                      },
+                      {
+                        "path": "privateKey"
+                      },
+                      {
+                        "path": "caCertificates"
+                      },
+                      {
+                        "path": "credentialName"
+                      },
+                      {
+                        "path": "subjectAltNames",
+                        "widget": "SimpleList"
+                      },
+                      {
+                        "path": "sni",
+                        "name": "SNI"
+                      },
+                      {
+                        "path": "insecureSkipVerify"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "path": "tunnel",
+                "widget": "FormGroup",
+                "children": [
+                  {
+                    "path": "protocol"
+                  },
+                  {
+                    "path": "targetHost"
+                  },
+                  {
+                    "path": "targetPort"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "general": {
+      "resource": {
+        "kind": "DestinationRule",
+        "group": "networking.istio.io",
+        "version": "v1beta1"
+      },
+      "name": "Destination Rules",
+      "category": "Istio",
+      "urlPath": "destinationrules",
+      "scope": "namespace",
+      "description": "resource.description"
+    },
+    "list": [
+      {
+        "source": "spec.host",
+        "name": "Host"
+      }
+    ],
+    "translations": {
+      "en": {
+        "metadata.annotations": "Annotations",
+        "metadata.labels": "Labels",
+        "metadata.creationTimestamp": "Created at",
+        "resource.description": "{{[Destination Rule](https://istio.io/latest/docs/reference/config/networking/destination-rule)}} specifies rules that apply to traffic intended for a service after routing.",
+        "references": "References",
+        "spec.exportTo": "Exported To Namespaces",
+        "spec.host": "Host",
+        "spec.trafficPolicy": "Traffic Policy",
+        "spec.subsets": "Subsets",
+        "spec.workloadSelector": "Workload Selector"
+      }
+    }
+  }
 }

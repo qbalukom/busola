@@ -25,6 +25,7 @@ export function ExtensibilityCreate({
   toggleFormFn,
   resourceName,
 }) {
+  console.log('ExtensibilityCreate');
   const { namespaceId: namespace } = useMicrofrontendContext();
   const notification = useNotification();
   const { t } = useTranslation();
@@ -76,40 +77,18 @@ export function ExtensibilityCreate({
   if (loading) return <Spinner />;
 
   return (
-    <ResourceForm
-      pluralKind={resourceType}
-      singularName={pluralize(resourceName || prettifyKind(resource.kind), 1)}
-      resource={resource}
-      setResource={updateResource}
-      formElementRef={formElementRef}
-      createUrl={resourceUrl}
-      setCustomValid={setCustomValid}
-      onlyYaml={!schema}
-      initialResource={initialResource}
-      afterCreatedFn={afterCreatedFn}
-    >
-      <ResourceSchema
-        simple
-        key={api.version}
-        schema={errorOpenApi ? {} : schema}
-        schemaRules={createResource?.form}
-        resource={resource}
-        store={store}
-        setStore={setStore}
-        onSubmit={() => {}}
-        path={general?.urlPath || ''}
-      />
-      {/* <ResourceSchema
-        advanced
-        key={api.version}
-        schema={errorOpenApi ? {} : schema}
-        schemaRules={createResource?.form}
-        resource={resource}
-        store={store}
-        setStore={setStore}
-        path={general?.urlPath || ''}
-      /> */}
-    </ResourceForm>
+    <ResourceSchema
+      simple
+      key={api.version}
+      schema={errorOpenApi ? {} : schema}
+      schemaRules={createResource?.form}
+      // resource={resource}
+      resource={null}
+      store={store}
+      setStore={setStore}
+      onSubmit={() => {}}
+      path={general?.urlPath || ''}
+    />
   );
 }
 

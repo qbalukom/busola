@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
+import { createStore } from '@ui-schema/ui-schema';
 import { createOrderedMap } from '@ui-schema/ui-schema/Utils/createMap';
 import { UIMetaProvider } from '@ui-schema/ui-schema/UIMeta';
 import { UIStoreProvider, storeUpdater } from '@ui-schema/ui-schema';
@@ -26,12 +27,22 @@ export function ResourceSchema({
   schema,
   schemaRules = [],
   path,
-  store,
-  setStore,
+  // store,
+  // setStore,
   ...extraParams
 }) {
+  const [store, setStore] = useState(() =>
+    createStore(createOrderedMap(resource)),
+  );
+  console.log('ResourceSchema', { advanced });
+  useEffect(() => console.log('store changed'), [store]);
+  useEffect(() => console.log('resource changed'), [resource]);
+  useEffect(() => console.log('schema changed'), [schema]);
+  useEffect(() => console.log('schema rules changed'), [schemaRules]);
+  useEffect(() => console.log('path changed'), [path]);
   const onChange = useCallback(
     actions => {
+      console.log('onChange', actions);
       setStore(prevStore => storeUpdater(actions)(prevStore));
     },
     [setStore],
@@ -83,7 +94,8 @@ export function ResourceSchema({
         onChange={onChange}
         schemaRules={preparedRules}
       >
-        <FormStack isRoot schema={schemaMap} resource={resource} />
+        {/* <FormStack isRoot schema={schemaMap} resource={resource} /> */}
+        <FormStack isRoot schema={schemaMap} />
       </UIStoreProvider>
     </UIMetaProvider>
   );

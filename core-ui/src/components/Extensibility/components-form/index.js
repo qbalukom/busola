@@ -1,4 +1,5 @@
 import { WidgetRenderer } from '@ui-schema/ui-schema/WidgetRenderer';
+// import { widgets } from '@ui-schema/ds-bootstrap';
 
 import {
   DefaultHandler,
@@ -27,15 +28,15 @@ import { ResourceRefRender } from './ResourceRefRenderer';
 import { SimpleList } from './SimpleList';
 
 const pluginStack = [
-  ReferencingHandler,
+  // ReferencingHandler,
   ExtractStorePlugin,
-  CombiningHandler,
-  DefaultHandler,
-  DependentHandler,
-  ConditionalHandler,
-  SchemaRulesInjector,
-  PluginSimpleStack,
-  ValidityReporter,
+  // CombiningHandler,
+  // DefaultHandler,
+  // DependentHandler,
+  // ConditionalHandler,
+  // SchemaRulesInjector,
+  // PluginSimpleStack,
+  // ValidityReporter,
 ];
 
 export const widgets = {
