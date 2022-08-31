@@ -19,6 +19,9 @@ import { ExtensibilityErrBoundary } from 'components/Extensibility/Extensibility
 import { useGetSchema } from 'hooks/useGetSchema';
 import { useTranslation } from 'react-i18next';
 
+import { schema } from './schema';
+import { ResourceSchema } from './ResourceSchema';
+
 export const ExtensibilityListCore = ({ resMetaData }) => {
   const { t, widgetT, exists } = useGetTranslation();
   const { t: tBusola } = useTranslation();
@@ -82,6 +85,14 @@ export const ExtensibilityListCore = ({ resMetaData }) => {
 const ExtensibilityList = () => {
   const resMetaData = useGetCRbyPath();
   const { urlPath, defaultPlaceholder } = resMetaData?.general ?? {};
+
+  // return (
+  // <ResourceSchema
+  // schema={schema}
+  // resource={null}
+  // onSubmit={() => {}}
+  // />
+  // );
 
   return (
     <TranslationBundleContext.Provider

@@ -28,15 +28,15 @@ import { ResourceRefRender } from './ResourceRefRenderer';
 import { SimpleList } from './SimpleList';
 
 const pluginStack = [
-  // ReferencingHandler,
+  ReferencingHandler,
   ExtractStorePlugin,
-  // CombiningHandler,
-  // DefaultHandler,
-  // DependentHandler,
-  // ConditionalHandler,
-  // SchemaRulesInjector,
-  // PluginSimpleStack,
-  // ValidityReporter,
+  CombiningHandler,
+  DefaultHandler,
+  DependentHandler,
+  ConditionalHandler,
+  SchemaRulesInjector,
+  PluginSimpleStack,
+  ValidityReporter,
 ];
 
 export const widgets = {

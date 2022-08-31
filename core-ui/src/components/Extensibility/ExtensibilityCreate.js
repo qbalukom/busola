@@ -84,8 +84,8 @@ export function ExtensibilityCreate({
       schemaRules={createResource?.form}
       // resource={resource}
       resource={null}
-      store={store}
-      setStore={setStore}
+      // store={store}
+      // setStore={setStore}
       onSubmit={() => {}}
       path={general?.urlPath || ''}
     />

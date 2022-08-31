@@ -17,6 +17,7 @@ const propertiesWrapper = src => ({
 });
 
 export function prepareSchemaRules(ruleDefs) {
+  console.log('prepareSchemaRules');
   const rules = [{ path: [], children: [] }];
 
   const addRule = rule => {

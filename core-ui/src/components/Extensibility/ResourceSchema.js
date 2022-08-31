@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useMemo, useState, useEffect, useCallback } from 'react';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -34,12 +34,12 @@ export function ResourceSchema({
   const [store, setStore] = useState(() =>
     createStore(createOrderedMap(resource)),
   );
-  console.log('ResourceSchema', { advanced });
-  useEffect(() => console.log('store changed'), [store]);
-  useEffect(() => console.log('resource changed'), [resource]);
-  useEffect(() => console.log('schema changed'), [schema]);
-  useEffect(() => console.log('schema rules changed'), [schemaRules]);
-  useEffect(() => console.log('path changed'), [path]);
+  // console.log('ResourceSchema', { advanced });
+  // useEffect(() => console.log('store changed'), [store]);
+  // useEffect(() => console.log('resource changed'), [resource]);
+  // useEffect(() => console.log('schema changed'), [schema]);
+  // useEffect(() => console.log('schema rules changed'), [schemaRules]);
+  // useEffect(() => console.log('path changed'), [path]);
   const onChange = useCallback(
     actions => {
       console.log('onChange', actions);
@@ -65,15 +65,13 @@ export function ResourceSchema({
 
   const myRules = advanced ? advancedRules : simpleRules;
   // const preparedRules = prepareSchemaRules(myRules);
-  const preparedRules = React.useMemo(() => prepareSchemaRules(myRules), [
-    myRules,
-  ]);
+  // const preparedRules = React.useMemo(() => prepareSchemaRules(myRules), [
+  // myRules,
+  // ]);
 
   let newSchema = schema;
   delete newSchema.properties.metadata;
-  const schemaMap = React.useMemo(() => createOrderedMap(newSchema), [
-    newSchema,
-  ]);
+  const schemaMap = React.useMemo(() => createOrderedMap(schema), [newSchema]);
 
   if (isEmpty(schema)) return null;
 
@@ -92,7 +90,7 @@ export function ResourceSchema({
         store={uiStore}
         showValidity={true}
         onChange={onChange}
-        schemaRules={preparedRules}
+        // schemaRules={preparedRules}
       >
         {/* <FormStack isRoot schema={schemaMap} resource={resource} /> */}
         <FormStack isRoot schema={schemaMap} />
