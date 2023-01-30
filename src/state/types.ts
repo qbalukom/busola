@@ -53,7 +53,8 @@ export type ExtResource = {
     name: string;
     category: string;
     urlPath: string;
-    scope: 'namespace' | 'cluster';
+    scope: 'namespace' | 'cluster' | 'single-namespace';
+    namespace?: string;
     description?: string;
     icon?: IconGlyph;
   };
@@ -81,6 +82,8 @@ export interface UrlGenerators {
 export type NavNode = {
   resourceType: string; // Jobs, CronJobs etc.
   category: string;
+  scope?: string;
+  namespace?: string;
   namespaced: boolean;
   label: string;
   pathSegment: string;

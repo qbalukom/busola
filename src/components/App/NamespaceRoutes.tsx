@@ -18,6 +18,7 @@ export default function NamespaceRoutes() {
   const { clusterUrl } = useUrl();
   const language = useRecoilValue(languageAtom);
   const extensions = useRecoilValue(extensionsState);
+  console.log('NamespaceRoutes');
 
   const { error } = useGet(`/api/v1/namespaces/${namespaceId}`, {
     skip: false,

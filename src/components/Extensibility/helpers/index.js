@@ -89,7 +89,10 @@ export function createTemplate(api, namespace, scope) {
     },
     spec: {},
   };
-  if (namespace && scope === 'namespace')
+  if (
+    (namespace && scope === 'namespace') ||
+    (namespace && scope === 'single-namespace')
+  )
     template.metadata.namespace = namespace;
   return template;
 }

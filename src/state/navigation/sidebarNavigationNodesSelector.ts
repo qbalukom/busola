@@ -3,7 +3,7 @@ import { partial } from 'lodash';
 
 import { assignNodesToCategories } from './assignToCategories';
 import { Category } from './categories';
-import { hasCurrentScope } from './filters/hasCurrentScope';
+// import { hasCurrentScope } from './filters/hasCurrentScope';
 import { NavNode, Scope } from '../types';
 
 import { clusterAndNsNodesSelector } from './clusterAndNsNodesSelector';
@@ -37,8 +37,18 @@ export const sidebarNavigationNodesSelector: RecoilValueReadOnly<Category[]> = s
       allNodes = mergeInExtensibilityNav(allNodes, extNavNodes);
     }
 
-    const nodesFromCurrentScope = partial(hasCurrentScope, scope);
-    const filteredNodes = allNodes.filter(nodesFromCurrentScope);
+    // const nodesFromCurrentScope = partial(hasCurrentScope, scope);
+    const filteredNodes = allNodes.filter((navNode: NavNode) => {
+      const nodeScope: string =
+        navNode.scope ?? (navNode.namespaced ? 'namespace' : 'cluster');
+      if (scope === nodeScope) {
+        return true;
+      } else if (nodeScope === 'single-namespace') {
+        return scope === 'cluster' || navNode.namespace === activeNamespaceId;
+      } else {
+        return false;
+      }
+    });
 
     const assignedToCategories: Category[] = assignNodesToCategories(
       filteredNodes,

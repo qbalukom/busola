@@ -346,6 +346,7 @@ export function ResourceListRenderer({
   };
 
   const prepareResourceUrl = (resourceUrl, resource) => {
+    console.log('prepareResourceUrl', resourceUrl, resource);
     const encodedName = encodeURIComponent(resource?.metadata.name);
     if (!resourceUrlPrefix) return `${resourceUrl}/${encodedName}`;
 

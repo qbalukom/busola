@@ -10,6 +10,8 @@ export const mapExtResourceToNavNode = (extRes: ExtResource) => {
   node.resourceType = extRes.general.resource.kind.toLowerCase();
   node.pathSegment = getExtensibilityPath(extRes.general);
   node.label = extRes.general.name || node.resourceType;
+  node.scope = extRes.general.scope;
+  node.namespace = extRes.general.namespace;
   node.namespaced = extRes.general.scope === 'namespace';
   node.apiGroup = extRes.general.resource.group || '';
   node.apiVersion = extRes.general.resource.version;

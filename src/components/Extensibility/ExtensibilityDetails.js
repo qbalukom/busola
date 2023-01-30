@@ -35,6 +35,7 @@ export const ExtensibilityDetailsCore = ({ resMetaData }) => {
     resourceI18Key: 'name',
     apiGroup: resource?.group,
     apiVersion: resource?.version,
+    namespace: resMetaData?.general?.namespace,
   });
 
   // there may be a moment when `resMetaData` is undefined (e.g. when switching the namespace)

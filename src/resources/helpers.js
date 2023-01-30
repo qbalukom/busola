@@ -16,14 +16,17 @@ export const usePrepareListProps = ({
   apiGroup,
   apiVersion,
   hasDetailsView,
+  namespace,
 }) => {
   const { namespaceId } = useParams();
   const queryParams = new URLSearchParams(window.location.search);
   const { i18n, t } = useTranslation();
 
+  if (!namespace) namespace = namespaceId;
+
   const api = apiGroup ? `apis/${apiGroup}/${apiVersion}` : `api/${apiVersion}`;
-  const resourceUrl = namespaceId
-    ? `/${api}/namespaces/${namespaceId}/${resourceType?.toLowerCase()}`
+  const resourceUrl = namespace
+    ? `/${api}/namespaces/${namespace}/${resourceType?.toLowerCase()}`
     : `/${api}/${resourceType?.toLowerCase()}`;
 
   return {
@@ -43,14 +46,17 @@ export const usePrepareDetailsProps = ({
   resourceI18Key,
   apiGroup,
   apiVersion,
+  namespace,
 }) => {
   const { resourceName, namespaceId } = useParams();
   const encodedResourceName = encodeURIComponent(resourceName);
   const queryParams = new URLSearchParams(window.location.search);
   const { i18n, t } = useTranslation();
   const api = apiGroup ? `apis/${apiGroup}/${apiVersion}` : `api/${apiVersion}`;
-  const resourceUrl = namespaceId
-    ? `/${api}/namespaces/${namespaceId}/${resourceType?.toLowerCase()}/${encodedResourceName}`
+
+  if (!namespace) namespace = namespaceId;
+  const resourceUrl = namespace
+    ? `/${api}/namespaces/${namespace}/${resourceType?.toLowerCase()}/${encodedResourceName}`
     : `/${api}/${resourceType?.toLowerCase()}/${encodedResourceName}`;
 
   const extensions = useRecoilValue(extensionsState);

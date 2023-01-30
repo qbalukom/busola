@@ -40,11 +40,14 @@ export function ExtensibilityCreateCore({
   editMode = false,
   ...props
 }) {
+  console.log('ExtensibilityCreateCore', 'resourceUrl', resourceUrl);
+  const general = createResource?.general;
   const { prepareVars, readVars } = useVariables();
-  const namespace = useRecoilValue(activeNamespaceIdState);
+  const namespace =
+    useRecoilValue(activeNamespaceIdState) ||
+    createResource?.general?.namespace;
   const notification = useNotification();
   const { t } = useTranslation();
-  const general = createResource?.general;
   const api = useMemo(() => general?.resource || {}, [general?.resource]);
   const triggers = useContext(TriggerContext);
 

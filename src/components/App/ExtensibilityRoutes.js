@@ -15,6 +15,8 @@ export const createExtensibilityRoutes = (cr, language) => {
     cr?.general?.urlPath ||
     pluralize(cr?.general?.resource?.kind?.toLowerCase() || '');
 
+  console.log('createRoute', urlPath);
+
   const translationBundle = urlPath || 'extensibility';
   i18next.addResourceBundle(
     language,

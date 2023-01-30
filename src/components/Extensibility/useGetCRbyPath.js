@@ -13,6 +13,7 @@ export const useGetCRbyPath = () => {
     const { scope, urlPath, resource } = el.general || {};
     const extensionPath = urlPath || pluralize(resource?.kind?.toLowerCase());
     const hasCorrectScope =
+      scope?.toLowerCase() === 'single-namespace' ||
       (scope?.toLowerCase() === 'namespace') === !!namespaceId;
     if (!hasCorrectScope) return false;
 

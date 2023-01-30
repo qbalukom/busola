@@ -51,6 +51,7 @@ export const ExtensibilityListCore = ({
     apiGroup: resource?.group,
     apiVersion: resource?.version,
     hasDetailsView: !!resMetaData?.details,
+    namespace: resMetaData?.general?.namespace,
   });
 
   const resourceTitle = resMetaData?.general?.name;
@@ -123,6 +124,8 @@ const ExtensibilityList = ({ overrideResMetadata, ...props }) => {
   const defaultResMetadata = useGetCRbyPath();
   const resMetaData = overrideResMetadata || defaultResMetadata;
   const { urlPath, defaultPlaceholder } = resMetaData?.general ?? {};
+
+  console.log('resMetaData', resMetaData);
 
   return (
     <TranslationBundleContext.Provider

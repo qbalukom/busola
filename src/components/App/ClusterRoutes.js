@@ -20,6 +20,7 @@ import { IncorrectPath } from './IncorrectPath';
 
 export default function ClusterRoutes() {
   let { currentClusterName } = useParams() || {};
+  console.log('ClusterRoutes');
 
   const navigate = useNavigate();
   const { t } = useTranslation();

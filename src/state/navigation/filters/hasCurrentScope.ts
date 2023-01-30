@@ -7,6 +7,15 @@ export const hasCurrentScope = (
   const isNamespace = scope === 'namespace';
   const isCluster = scope === 'cluster';
 
+  if (navNode.scope) {
+    if (scope === 'cluster') {
+      return navNode.scope !== 'namespace';
+    }
+    if (scope === 'namespace') {
+      return navNode.scope !== 'cluster';
+    }
+  }
+
   if (isNamespace) {
     return navNode.namespaced;
   }
